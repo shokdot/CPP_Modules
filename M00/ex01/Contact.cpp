@@ -1,12 +1,8 @@
 #include "Contact.hpp"
 
-Contact::Contact()
+Contact::Contact() : _firstname(""), _lastname(""), _nickname(""),
+	_phonenumber(""), _darkestsecret("")
 {
-	setFirstName("");
-	setLastName("");
-	setNickName("");
-	setPhoneNumber("");
-	setDarkestSecret("");
 }
 
 Contact::~Contact()
