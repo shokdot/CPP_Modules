@@ -4,14 +4,14 @@ Character::Character() : name("nil")
 {
 	std::cout << "Character default constructor called." << std::endl;
 	for (int i = 0; i < 4; ++i)
-		this->slot[i] = nullptr;
+		this->slot[i] = NULL;
 }
 
 Character::Character(const std::string &name) : name(name)
 {
 	std::cout << "Character parametric constructor called." << std::endl;
 	for (int i = 0; i < 4; ++i)
-		this->slot[i] = nullptr;
+		this->slot[i] = NULL;
 }
 
 Character::Character(const Character &other) : name(other.name)
@@ -25,7 +25,7 @@ Character::Character(const Character &other) : name(other.name)
 			this->slot[i] = other.slot[i]->clone();
 		}
 		else
-			this->slot[i] = nullptr;
+			this->slot[i] = NULL;
 	}
 }
 
@@ -70,7 +70,7 @@ void Character::equip(AMateria *m)
 void Character::unequip(int idx)
 {
 	if (idx >= 0 && idx < 4)
-		this->slot[idx] = nullptr;
+		this->slot[idx] = NULL;
 }
 
 void Character::use(int idx, ICharacter &target)

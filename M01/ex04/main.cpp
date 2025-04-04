@@ -22,7 +22,7 @@ int main(int ac, char **av)
 		return -1;
 	}
 	std::string new_file = std::string(av[1]) + ".replace";
-	std::ofstream outfile(new_file);
+	std::ofstream outfile(new_file.c_str());
 
 	Sed replacer = Sed(infile, outfile);
 	replacer.replace(av[2], av[3]);

@@ -4,6 +4,7 @@
 #include <map>
 #include <iostream>
 #include <sstream>
+#include <cstdlib>
 
 class BitcoinExchange
 {

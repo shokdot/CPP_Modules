@@ -5,9 +5,9 @@
 #include <deque>
 
 template <typename T>
-void testFind(const T &container, int value)
+void testFind(T &container, int value)
 {
-	typename T::const_iterator it = easyfind(container, value);
+	typename T::iterator it = easyfind(container, value);
 	if (it != container.end())
 		std::cout << "Found: " << *it << " in container" << std::endl;
 	else

@@ -17,7 +17,8 @@ ShrubberyCreationForm &ShrubberyCreationForm::operator=(const ShrubberyCreationF
 void ShrubberyCreationForm::execute(const Bureaucrat &executor) const
 {
 	this->checkExecute(executor);
-	std::ofstream file(this->target + "_shrubbery");
+	std::string filename = this->target + "_shrubbery";
+	std::ofstream file(filename.c_str());
 	if (file.is_open())
 	{
 		file << apricot_tree;

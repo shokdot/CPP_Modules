@@ -9,7 +9,7 @@ BitcoinExchange::~BitcoinExchange() {}
 
 void BitcoinExchange::parseCSV(const std::string &fname)
 {
-	std::ifstream dict(fname);
+	std::ifstream dict(fname.c_str());
 	if (!dict.is_open() || dict.eof())
 		throw std::runtime_error("Couldn't open CSV file.");
 	std::string line;
@@ -102,7 +102,7 @@ bool BitcoinExchange::isValidValue(const std::string &value)
 
 void BitcoinExchange::exchange(const std::string &fname)
 {
-	std::ifstream infile(fname);
+	std::ifstream infile(fname.c_str());
 	if (!infile.is_open() || infile.eof())
 		throw std::runtime_error("Couldn't open input file.");
 	std::string header;
