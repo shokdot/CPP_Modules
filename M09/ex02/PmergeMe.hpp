@@ -10,9 +10,9 @@ class PmergeMe
 private:
 	PmergeMe();
 	template <typename Container>
-	void insertionSort(Container &DS);
+	void merge(Container &DS, int left, int mid, int right);
 	template <typename Container>
-	void sort(Container &DS);
+	void sort(Container &DS, int left, int right);
 
 public:
 	PmergeMe(std::vector<int> &input);

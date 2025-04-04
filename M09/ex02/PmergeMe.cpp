@@ -3,11 +3,11 @@
 PmergeMe::PmergeMe(std::vector<int> &input) : size(input.size()), m_vec(input), m_deq(input.begin(), input.end())
 {
 	std::clock_t start = std::clock();
-	this->sort(this->m_vec);
+	this->sort(this->m_vec, 0, this->m_vec.size() - 1);
 	std::clock_t end = std::clock();
 	double vec_time = static_cast<double>(end - start) / CLOCKS_PER_SEC;
 	start = std::clock();
-	this->sort(this->m_deq);
+	this->sort(this->m_deq, 0, this->m_deq.size() - 1);
 	end = std::clock();
 	double deq_time = static_cast<double>(end - start) / CLOCKS_PER_SEC;
 	std::cout << "After: ";
@@ -31,31 +31,23 @@ PmergeMe &PmergeMe::operator=(const PmergeMe &rhs)
 	return *this;
 }
 template <typename Container>
-void PmergeMe::insertionSort(Container &DS)
+void PmergeMe::merge(Container &DS, int left, int mid, int right)
 {
-	for (size_t i = 1; i < DS.size(); i++)
-	{
-		int tmp = DS[i];
-		int j = i - 1;
-		while (j >= 0 && DS[j] > tmp)
-		{
-			DS[j + 1] = DS[j];
-			j--;
-		}
-		DS[j + 1] = tmp;
-	}
+	Container temp(DS.size());
+	std::merge(DS.begin() + left, DS.begin() + mid + 1, DS.begin() + mid + 1, DS.begin() + right + 1, temp.begin());
+	std::copy(temp.begin(), temp.begin() + (right - left + 1), DS.begin() + left);
 }
 
 template <typename Container>
-void PmergeMe::sort(Container &DS)
+void PmergeMe::sort(Container &DS, int left, int right)
 {
-	if (DS.size() <= 32)
-		return insertionSort(DS);
-	Container left(DS.begin(), DS.begin() + DS.size() / 2);
-	Container right(DS.begin() + DS.size() / 2, DS.end());
-	sort(left);
-	sort(right);
-	std::merge(left.begin(), left.end(), right.begin(), right.end(), DS.begin());
+	if (left < right)
+	{
+		int mid = left + (right - left) / 2;
+		sort(DS, left, mid);
+		sort(DS, mid + 1, right);
+		merge(DS, left, mid, right);
+	}
 }
 
 PmergeMe::~PmergeMe() {}
