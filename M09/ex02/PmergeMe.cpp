@@ -3,11 +3,11 @@
 PmergeMe::PmergeMe(std::vector<int> &input) : size(input.size()), m_vec(input), m_deq(input.begin(), input.end())
 {
 	std::clock_t start = std::clock();
-	this->sort(this->m_vec, 0, this->m_vec.size() - 1);
+	this->sort(this->m_vec);
 	std::clock_t end = std::clock();
 	double vec_time = static_cast<double>(end - start) / CLOCKS_PER_SEC;
 	start = std::clock();
-	this->sort(this->m_deq, 0, this->m_deq.size() - 1);
+	this->sort(this->m_deq);
 	end = std::clock();
 	double deq_time = static_cast<double>(end - start) / CLOCKS_PER_SEC;
 	std::cout << "After: ";
@@ -30,24 +30,46 @@ PmergeMe &PmergeMe::operator=(const PmergeMe &rhs)
 	}
 	return *this;
 }
-template <typename Container>
-void PmergeMe::merge(Container &DS, int left, int mid, int right)
-{
-	Container temp(DS.size());
-	std::merge(DS.begin() + left, DS.begin() + mid + 1, DS.begin() + mid + 1, DS.begin() + right + 1, temp.begin());
-	std::copy(temp.begin(), temp.begin() + (right - left + 1), DS.begin() + left);
-}
 
 template <typename Container>
-void PmergeMe::sort(Container &DS, int left, int right)
+void PmergeMe::sort(Container &DS)
 {
-	if (left < right)
+	if (DS.size() <= 1)
+		return;
+	Container winners, losers;
+
+	for (size_t i = 0; i + 1 < DS.size(); i += 2)
 	{
-		int mid = left + (right - left) / 2;
-		sort(DS, left, mid);
-		sort(DS, mid + 1, right);
-		merge(DS, left, mid, right);
+		if (DS[i] < DS[i + 1])
+		{
+			winners.push_back(DS[i + 1]);
+			losers.push_back(DS[i]);
+		}
+		else
+		{
+			winners.push_back(DS[i]);
+			losers.push_back(DS[i + 1]);
+		}
 	}
+	bool hasOdd = DS.size() % 2 != 0;
+	int oddElem;
+	if (hasOdd)
+		oddElem = DS.back();
+
+	sort(winners);
+
+	for (size_t i = 0; i < losers.size(); i++)
+	{
+		typename Container::iterator pos = std::lower_bound(winners.begin(), winners.end(), DS[i]);
+		winners.insert(pos, DS[i]);
+	}
+	if (hasOdd)
+	{
+		typename Container::iterator pos = std::lower_bound(winners.begin(), winners.end(), oddElem);
+		winners.insert(pos, oddElem);
+	}
+
+	DS = winners;
 }
 
 PmergeMe::~PmergeMe() {}
