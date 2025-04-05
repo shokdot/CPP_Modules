@@ -1,7 +1,7 @@
 #include "Dog.hpp"
 #include "Cat.hpp"
 
-int t_main()
+int main()
 {
 	AAnimal **meta = new AAnimal *[100];
 	for (int i = 0; i < 50; i++)
@@ -14,11 +14,4 @@ int t_main()
 		delete meta[i];
 	}
 	delete[] meta;
-	return (0);
-}
-
-int main()
-{
-	t_main();
-	system("leaks AAnimal");
 }

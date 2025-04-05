@@ -1,6 +1,6 @@
 #include "HumanB.hpp"
 
-HumanB::HumanB(std::string name) : name(name), wep(nullptr){}
+HumanB::HumanB(std::string name) : name(name), wep(NULL){}
 
 HumanB::~HumanB(){}
 
